@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace GqlChocolate.GraphQL.Types
 {
-    public class LocationType
+    public class TagType
     {
         [GraphQLType(typeof(NonNullType<IdType>))]
         public int Id { get; set; }
+
         [GraphQLNonNullType]
-        public string Name { get; set; }
+        public string Title { get; set; }
         [GraphQLNonNullType]
-        public string Code { get; set; }
+        public string Description { get; set; }
         [GraphQLNonNullType]
         public bool Active { get; set; }
     }

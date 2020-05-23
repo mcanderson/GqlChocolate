@@ -18,6 +18,10 @@ namespace GqlChocolate
     /// 
     // TODO go through more of this: Get started with GraphQL and Entity Framework - DEV
     // https://dev.to/michaelstaib/get-started-with-hot-chocolate-and-entity-framework-e9i
+    // TODO this before next one:
+    // https://www.codemag.com/Article/1909061/Intro-to-GraphQL-for-.NET-Developers-Schema-Resolver-and-Query-Language
+    // TODO also finish going through this: 
+    // https://www.codemag.com/Article/2003051/Introduction-to-GraphQL-for-.NET-Developers-Mutation
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -40,7 +44,8 @@ namespace GqlChocolate
                   .New()
                   // Here, we add the LocationQueryType as a QueryType
                   .AddQueryType<LocationQueryType>()
-                  .AddMutationType<LocationMutationType>()
+                  // TODO uncomment once mutation code complete
+              //    .AddMutationType<LocationMutationType>()
                   .Create());
         }
 
