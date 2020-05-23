@@ -1,6 +1,7 @@
 ﻿using GqlChocolate.Database;
 using GqlChocolate.Entities;
 using HotChocolate;
+using HotChocolate.Types;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace GqlChocolate.GraphQL
     {
         // GetLocations: Return a list of all locations
         // Notice the [Service]. It's an auto hook up from HotChocolate
+        [UseSelection]
+        [UseFiltering]
+        [UseSorting]
         public async Task<List<Locations>> GetLocations([Service] MyDbContext dbContext) =>
           await dbContext
             .Location

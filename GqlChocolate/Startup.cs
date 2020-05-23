@@ -1,5 +1,6 @@
 using GqlChocolate.Database;
 using GqlChocolate.GraphQL;
+using GqlChocolate.GraphQL.Types;
 using HotChocolate;
 using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +12,12 @@ using Microsoft.Extensions.Hosting;
 
 namespace GqlChocolate
 {
+    /// <summary>
+    /// Project started from this tutorial: https://dev.to/mnsr/entity-framework-dotnet-core-with-graphql-and-sql-server-using-hotchocolate-4fl6
+    /// </summary>
+    /// 
+    // TODO go through more of this: Get started with GraphQL and Entity Framework - DEV
+    // https://dev.to/michaelstaib/get-started-with-hot-chocolate-and-entity-framework-e9i
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -33,6 +40,7 @@ namespace GqlChocolate
                   .New()
                   // Here, we add the LocationQueryType as a QueryType
                   .AddQueryType<LocationQueryType>()
+                  .AddMutationType<LocationMutationType>()
                   .Create());
         }
 

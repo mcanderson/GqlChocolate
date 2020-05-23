@@ -13,6 +13,9 @@
     <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.4.3" />
     <PackageReference Include="HotChocolate.Language" Version="10.4.3" />
     <PackageReference Include="HotChocolate.Server" Version="10.4.3" />
+    <PackageReference Include="HotChocolate.Types.Filters" Version="10.4.3" />
+    <PackageReference Include="HotChocolate.Types.Selections" Version="10.4.3" />
+    <PackageReference Include="HotChocolate.Types.Sorting" Version="10.4.3" />
     <PackageReference Include="HotChocolate.Utilities" Version="10.4.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
