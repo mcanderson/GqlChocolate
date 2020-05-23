@@ -1,6 +1,10 @@
+using GqlChocolate.Database;
+using GqlChocolate.GraphQL;
 using HotChocolate;
+using HotChocolate.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,10 +23,17 @@ namespace GqlChocolate
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddGraphQL(
-              SchemaBuilder.New()
-              // AddQueryType<T>() here 
-              .Create());
+            services.AddDbContext<MyDbContext>(options =>
+                options.UseSqlServer(MyDbContext.DbConnectionString));
+
+            // Add GraphQL Services
+            services
+              .AddDataLoaderRegistry()
+              .AddGraphQL(SchemaBuilder
+                  .New()
+                  // Here, we add the LocationQueryType as a QueryType
+                  .AddQueryType<LocationQueryType>()
+                  .Create());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,14 +44,11 @@ namespace GqlChocolate
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app
+              .UseRouting()
+              .UseWebSockets()
+              .UseGraphQL()
+              .UsePlayground();
         }
     }
 }
