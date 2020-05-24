@@ -1,3 +1,4 @@
+using AutoMapper; 
 using GqlChocolate.Database;
 using GqlChocolate.GraphQL;
 using GqlChocolate.GraphQL.Types;
@@ -18,8 +19,6 @@ namespace GqlChocolate
     /// 
     // TODO go through more of this: Get started with GraphQL and Entity Framework - DEV
     // https://dev.to/michaelstaib/get-started-with-hot-chocolate-and-entity-framework-e9i
-    // TODO this before next one:
-    // https://www.codemag.com/Article/1909061/Intro-to-GraphQL-for-.NET-Developers-Schema-Resolver-and-Query-Language
     // TODO also finish going through this: 
     // https://www.codemag.com/Article/2003051/Introduction-to-GraphQL-for-.NET-Developers-Mutation
     public class Startup
@@ -34,6 +33,8 @@ namespace GqlChocolate
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(MyDbContext.DbConnectionString));
 
@@ -42,10 +43,12 @@ namespace GqlChocolate
               .AddDataLoaderRegistry()
               .AddGraphQL(SchemaBuilder
                   .New()
+                  .AddType<LocationType>()
+                  .AddType<TagType>()
                   // Here, we add the LocationQueryType as a QueryType
                   .AddQueryType<LocationQueryType>()
                   // TODO uncomment once mutation code complete
-              //    .AddMutationType<LocationMutationType>()
+                  .AddMutationType<LocationMutationType>()
                   .Create());
         }
 

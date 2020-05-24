@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace GqlChocolate.Entities
 {
-    [Table("Locations")]
-    public class Locations
+    [Table("Categories")]
+    public class Categories
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
@@ -17,11 +17,14 @@ namespace GqlChocolate.Entities
         public string Name { get; set; }
 
         [Required, MaxLength(5)]
-        public string Code { get; set; }
+        public string Description { get; set; }
+        public Uri Url { get; set; }
+        public string Icon { get; set; }
+        public int? OrderRank { get; set; }
 
         [Required]
         public bool Active { get; set; }
-        [ForeignKey("LocationId")]
+        [ForeignKey("CategoryId")]
         public ICollection<LocationCategoryXwalk> LocationCategoryXwalks { get; set; }
     }
 }

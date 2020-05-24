@@ -7,21 +7,18 @@ using System.Threading.Tasks;
 
 namespace GqlChocolate.Entities
 {
-    [Table("Locations")]
-    public class Locations
+    public class Tags
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Required, MaxLength(50)]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
-        [Required, MaxLength(5)]
-        public string Code { get; set; }
-
+        [Required, MaxLength(500)]
+        public string Description { get; set; }
         [Required]
         public bool Active { get; set; }
-        [ForeignKey("LocationId")]
-        public ICollection<LocationCategoryXwalk> LocationCategoryXwalks { get; set; }
+
     }
 }

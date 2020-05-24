@@ -15,6 +15,19 @@ namespace GqlChocolate.Database
         { }
 
         public DbSet<Locations> Location { get; set; }
+        public DbSet<Categories> Category { get; set; }
+
+        public DbSet<LocationCategoryXwalk> LocationCategoryXwalk { get; set; }
+        public DbSet<Tags> Tag { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            if (modelBuilder == null)
+                throw new ArgumentNullException(nameof(modelBuilder));
+
+            modelBuilder.Entity<LocationCategoryXwalk>()
+               .HasKey(p => new { p.LocationId, p.CategoryId });
+        }
 
     }
 }

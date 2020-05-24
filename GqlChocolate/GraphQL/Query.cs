@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GqlChocolate.GraphQL
 {
-    public class LocationQueries
+    public class Query
     {
         // GetLocations: Return a list of all locations
         // Notice the [Service]. It's an auto hook up from HotChocolate
