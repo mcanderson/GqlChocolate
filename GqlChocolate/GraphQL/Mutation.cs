@@ -3,36 +3,42 @@ using GqlChocolate.Database;
 using GqlChocolate.Entities;
 using GqlChocolate.GraphQL.InputTypes;
 using GqlChocolate.GraphQL.Types;
+using GqlChocolate.Data;
 using HotChocolate;
-using GqlChocolate.Entities;
-using GqlChocolate.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace GqlChocolate.GraphQL
 {
     public class Mutation
     {
-
-        public Mutation()
+      //  private readonly IMapper _mapper;
+        private readonly LocationRepository _repository; 
+        public Mutation(LocationRepository repository)
         {
-
+            //  _mapper = mapper; 
+            _repository = repository
+                 ?? throw new ArgumentNullException(nameof(repository));
         }
 
-        public Locations AddLocation([Service] MyDbContext dbContext, LocationInput input)
+        public async Task<Locations> AddLocation([Service] MyDbContext dbContext, LocationInput input)
         {
-            var location = new Locations
+            var sqlLocation = new Locations
             {
                 Name = input.Name,
                 Code = input.Code,
                 Active = input.Active
             };
-            dbContext.Location.Add(location);
-            dbContext.SaveChanges();
 
-            return location;
+            _repository.AddLocation(sqlLocation);
+
+            return sqlLocation; 
+            //dbContext.Location.Add(sqlLocation);
+            //dbContext.SaveChangesAsync();
+
+           // var locationType = _mapper.Map<LocationType>(location);
+
+            //return location;
         }
     }
 }

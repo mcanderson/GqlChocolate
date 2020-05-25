@@ -1,9 +1,11 @@
-using AutoMapper; 
+using AutoMapper;
+using GqlChocolate.Data;
 using GqlChocolate.Database;
 using GqlChocolate.GraphQL;
 using GqlChocolate.GraphQL.Types;
 using HotChocolate;
 using HotChocolate.AspNetCore;
+using HotChocolate.Execution.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -35,8 +37,11 @@ namespace GqlChocolate
         {
             services.AddAutoMapper(typeof(Startup));
 
+            // TODO figure out how to get these two working - dbcontext and locationrepository scope errors
             services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(MyDbContext.DbConnectionString));
+
+            services.AddSingleton<LocationRepository>();
 
             // Add GraphQL Services
             services
@@ -45,11 +50,10 @@ namespace GqlChocolate
                   .New()
                   .AddType<LocationType>()
                   .AddType<TagType>()
-                  // Here, we add the LocationQueryType as a QueryType
                   .AddQueryType<LocationQueryType>()
-                  // TODO uncomment once mutation code complete
                   .AddMutationType<LocationMutationType>()
-                  .Create());
+                  .Create(), 
+                  new QueryExecutionOptions { IncludeExceptionDetails = true });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

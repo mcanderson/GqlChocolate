@@ -1,9 +1,5 @@
 ﻿using GqlChocolate.GraphQL.Types;
 using HotChocolate.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GqlChocolate.GraphQL
 {
@@ -11,12 +7,12 @@ namespace GqlChocolate.GraphQL
     {
         protected override void Configure(IObjectTypeDescriptor<Mutation> descriptor)
         {
-            base.Configure(descriptor);
+          //  base.Configure(descriptor);
 
-            // TODO fix this code
-            //descriptor.Field(f => f.AddLocation(default, default)
-            //  .Type<LocationType>()
-            //  .Argument("input", a => a.Type<LocationInputType>(nullable: false)));
+            //    TODO fix this code
+            descriptor.Field(f => f.AddLocation(default, default))
+              .Type<LocationType>()
+              .Argument("input", a => a.Type<NonNullType<LocationInputType>>());
 
             //descriptor
             //  .Field(f => f.GetLocation(default, default))
