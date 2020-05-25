@@ -3,7 +3,6 @@ using GqlChocolate.Database;
 using GqlChocolate.Entities;
 using GqlChocolate.GraphQL.InputTypes;
 using GqlChocolate.GraphQL.Types;
-using GqlChocolate.Data;
 using HotChocolate;
 using System.Threading.Tasks;
 using System;
@@ -12,33 +11,25 @@ namespace GqlChocolate.GraphQL
 {
     public class Mutation
     {
-      //  private readonly IMapper _mapper;
-        private readonly LocationRepository _repository; 
-        public Mutation(LocationRepository repository)
-        {
-            //  _mapper = mapper; 
-            _repository = repository
-                 ?? throw new ArgumentNullException(nameof(repository));
-        }
 
-        public async Task<Locations> AddLocation([Service] MyDbContext dbContext, LocationInput input)
-        {
-            var sqlLocation = new Locations
+        // Changes to make project more like this: https://dev.to/michaelstaib/get-started-with-hot-chocolate-and-entity-framework-e9i
+        /// <summary>
+        /// Gets all students.
+        /// </summary>
+        public async Task<Locations> AddLocation([Service] MyDbContext dbContext, LocationInput input) {
+            var tempInput = new Entities.Locations
             {
                 Name = input.Name,
                 Code = input.Code,
                 Active = input.Active
-            };
 
-            _repository.AddLocation(sqlLocation);
+            }; 
+            dbContext.Location.Add(tempInput);
+            dbContext.SaveChanges();
+            // TODO figure out how to get the ID # and assign back to the entity?
+//             tempInput.ID = dbContext.Location.
+            return tempInput; 
 
-            return sqlLocation; 
-            //dbContext.Location.Add(sqlLocation);
-            //dbContext.SaveChangesAsync();
-
-           // var locationType = _mapper.Map<LocationType>(location);
-
-            //return location;
         }
     }
 }

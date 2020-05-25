@@ -11,9 +11,9 @@ namespace GqlChocolate.GraphQL
             descriptor
               .Field(f => f.GetLocations(default));
 
-              descriptor
-                .Field(f => f.GetLocation(default, default))
-                .Argument("code", a => a.Type<StringType>());
+              //descriptor
+              //  .Field(f => f.GetLocation(default, default))
+              //  .Argument("code", a => a.Type<StringType>());
         }
     }
 }

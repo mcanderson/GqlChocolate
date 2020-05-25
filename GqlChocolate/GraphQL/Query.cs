@@ -13,29 +13,18 @@ namespace GqlChocolate.GraphQL
 {
     public class Query
     {
-        // GetLocations: Return a list of all locations
-        // Notice the [Service]. It's an auto hook up from HotChocolate
-        [UsePaging]
+        // Changes to make project more like this: https://dev.to/michaelstaib/get-started-with-hot-chocolate-and-entity-framework-e9i
+        /// <summary>
+        /// Gets all students.
+        /// </summary>
         [UseSelection]
         [UseFiltering]
         [UseSorting]
         public async Task<List<Locations>> GetLocations([Service] MyDbContext dbContext) =>
-          await dbContext
-            .Location
+            await dbContext.Location
             .AsNoTracking()
-            .OrderBy(o => o.Name)
-            .ToListAsync();
-
-        // GetLocation: Return a list of locations by location code
-        [UseFirstOrDefault]
-        [UseSelection]
-        public async Task<List<Locations>> GetLocation([Service] MyDbContext dbContext, string code) =>
-          await dbContext
-            .Location
-            .AsNoTracking()
-            .Where(w => w.Code == code)
             .OrderBy(o => o.Name)
             .ToListAsync();
     }
-}
+ }
 

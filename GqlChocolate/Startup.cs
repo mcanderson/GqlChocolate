@@ -1,5 +1,4 @@
 using AutoMapper;
-using GqlChocolate.Data;
 using GqlChocolate.Database;
 using GqlChocolate.GraphQL;
 using GqlChocolate.GraphQL.Types;
@@ -41,19 +40,15 @@ namespace GqlChocolate
             services.AddDbContext<MyDbContext>(options =>
                 options.UseSqlServer(MyDbContext.DbConnectionString));
 
-            services.AddSingleton<LocationRepository>();
-
             // Add GraphQL Services
             services
               .AddDataLoaderRegistry()
               .AddGraphQL(SchemaBuilder
                   .New()
-                  .AddType<LocationType>()
-                  .AddType<TagType>()
                   .AddQueryType<LocationQueryType>()
                   .AddMutationType<LocationMutationType>()
                   .Create(), 
-                  new QueryExecutionOptions { IncludeExceptionDetails = true });
+                  new QueryExecutionOptions { IncludeExceptionDetails = true, ForceSerialExecution = true });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

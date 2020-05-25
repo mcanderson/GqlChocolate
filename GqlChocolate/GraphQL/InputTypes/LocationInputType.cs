@@ -13,6 +13,9 @@ namespace GqlChocolate.GraphQL.Types
         {
             base.Configure(descriptor);
 
+            descriptor.Field(i => i.Id)
+                .Type<IdType>(); 
+
             descriptor.Field(i => i.Name)
                 .Type<NonNullType<StringType>>();
 

@@ -1,4 +1,5 @@
-﻿using GqlChocolate.GraphQL.Types;
+﻿using GqlChocolate.Entities;
+using GqlChocolate.GraphQL.Types;
 using HotChocolate.Types;
 
 namespace GqlChocolate.GraphQL
@@ -7,7 +8,7 @@ namespace GqlChocolate.GraphQL
     {
         protected override void Configure(IObjectTypeDescriptor<Mutation> descriptor)
         {
-          //  base.Configure(descriptor);
+            //  base.Configure(descriptor);
 
             //    TODO fix this code
             descriptor.Field(f => f.AddLocation(default, default))

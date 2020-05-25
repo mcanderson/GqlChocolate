@@ -15,17 +15,14 @@ namespace GqlChocolate.GraphQL.Types
             base.Configure(descriptor);
 
             descriptor.Field(a => a.ID)
-                .Type<IdType>()
-                .Resolver(ctx => "id");
+                .Type<IdType>();
             descriptor.Field(a => a.Name)
-                .Type<StringType>()
-                .Resolver(ctx => "name"); 
+                .Type<StringType>();
             descriptor.Field(a => a.Code)
-                .Type<StringType>()
-                .Resolver(ctx => "code"); 
+                .Type<StringType>();
             descriptor.Field(a => a.Active)
-                .Type<BooleanType>()
-                .Resolver(ctx => "isActive");
+                .Type<BooleanType>();
+
         }
         //[GraphQLType(typeof(NonNullType<IdType>))]
         //public int Id { get; set; }
